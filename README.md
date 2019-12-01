@@ -6,7 +6,10 @@
 ---
 ## 2019
 * UVa Solutions: 173
-* Topics: Data Structures, Graphs, Strings.
+* Topics: 
+    * Data Structures
+    * Graphs
+    * Strings
 * Competitions:
     * 2019 ICPC Colombia National: place 17/94
     * 2019 ICPC South America-North Finals: place 254/316
