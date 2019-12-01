@@ -13,7 +13,9 @@
 * Competitions:
     * 2019 ICPC Colombia National: place 17/94
     * 2019 ICPC South America-North Finals: place 254/316
-# 2020 Goals:
+# 2020 Goals
+
+---
 * Increase typing speed
 * Master Graph Theory
 * Master Strings Topics
