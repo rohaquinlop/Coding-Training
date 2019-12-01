@@ -7,13 +7,13 @@
 ## 2019
 * UVa Solutions: 173
 * Topics: Data Structures, Graphs, Strings.
-Markup : * Competitions:
-            * 2019 ICPC Colombia National: place 17/94
-            * 2019 ICPC South America-North Finals: place 254/316
-# Goals
+* Competitions:
+    * 2019 ICPC Colombia National: place 17/94
+    * 2019 ICPC South America-North Finals: place 254/316
+# 2020 Goals:
 * Increase typing speed
 * Master Graph Theory
 * Master Strings Topics
 * Learn Advanced Dynamic Programming skills
-* Top 5 2020 ICPC Colombia National
-* Top 40 2020 ICPC South America-North Finals
+* Top 5 ICPC Colombia National
+* Top 40 ICPC South America-North Finals
