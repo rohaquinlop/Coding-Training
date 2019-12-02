@@ -16,6 +16,8 @@ typedef vector <string> vs;
 typedef vector < vi > vvi;
 typedef vector < vll > vvll;
 
+#define fl(i, a, b)	for (int i(a); i < (b); i ++)
+
 #define all(v) 	(v).begin(), (v).end()
 #define srt(v)	sort (all (v))
 
