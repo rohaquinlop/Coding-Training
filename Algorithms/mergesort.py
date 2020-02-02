@@ -7,20 +7,22 @@ def concatenate(a, b):
 	Funcion que recibe dos listas y las concatena respetando el orden de cada elemento
 	"""
 	res = []
-	while a or b:
-		if not a:
-			res.append(b.pop(0))
-		elif not b:
-			res.append(a.pop(0))
+	i = 0
+	j = 0
+	while (i < len(a)) or ( j < len(b)):
+		if i == len(a):
+			res.append(b[j])
+			j += 1
+		elif j == len(b):
+			res.append(a[i])
+			i += 1
 		else:
-			a1 = a[0]
-			b1 = b[0]
-			if a1 < b1:
-				res.append(a1)
-				a.pop(0)
+			if a[i] < b[j]:
+				res.append(a[i])
+				i += 1
 			else:
-				res.append(b1)
-				b.pop(0)
+				res.append(b[j])
+				j += 1
 	return res
 
 def divideLst(lst):
@@ -28,9 +30,9 @@ def divideLst(lst):
 	mid = len(lst)//2
 	i = 0
 	while i < mid:
-		res.append(lst.pop(0))
+		res.append(lst[i])
 		i += 1
-	return res, lst
+	return res, lst[i::]
 
 def mergeSort(lst):
 	if len(lst) == 1:
