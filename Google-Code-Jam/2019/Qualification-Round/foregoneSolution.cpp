@@ -30,7 +30,7 @@ typedef vector < vll > vvll;
 #define fr first
 #define sc second
 
-#define sz(x) ((int) (x).size())
+#define len(x) ((int) (x).size())
 #define fill (x, y)	memset(x, y, sizeof(x))
 #define clr(a)	fill(a, 0)
 #define endl '\n'
@@ -51,6 +51,42 @@ template <typename T> T power(T x, T y, ll m = MOD) { T ans = 1; x %= m; while (
 
 int main() {
 	FAST_IO;
+  int c = 0, i, j;
+  string line;
+
+  while(getline(cin, line)){
+    if( c != 0 ){
+      vector<pii>a, b;
+      //Getting the values of each position in the array
+      j = 1;
+      for(i = line.size()-1; i >= 0; --i){
+        if( line[i] == '4' ){
+          a.push_back( mp(2,j) );
+          b.push_back( mp(2,j) );
+        }
+        else{
+          if( len(a) > len(b) ) b.push_back( mp(line[i]-'0', j) );
+          else a.push_back( mp(line[i]-'0', j) );
+        }
+        j *= 10;
+      }
+      long long int resA = 0, resB = 0;
+      fl(i, 0, len(a)){
+        pii x = a[i];
+        long long aux = x.first*x.second;
+        resA += aux;
+      }
+
+      fl(i, 0, len(b)){
+        pii x = b[i];
+        long long aux = x.first*x.second;
+        resB += aux;
+      }
+
+      cout << "Case #" << c << ": " << resA << " " << resB << endl;
+    }
+    c++;
+  }
 
 
 	return 0;
