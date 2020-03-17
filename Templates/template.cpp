@@ -30,7 +30,7 @@ typedef vector < vll > vvll;
 #define fr first
 #define sc second
 
-#define sz(x) ((int) (x).size())
+#define len(x) ((int) (x).size())
 #define fill (x, y)	memset(x, y, sizeof(x))
 #define clr(a)	fill(a, 0)
 #define endl '\n'
