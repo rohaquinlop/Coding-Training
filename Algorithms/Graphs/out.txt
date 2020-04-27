@@ -1,4 +1,0 @@
-Total SCC´s: 3
-SCC #1: 0 
-SCC #2: 3 2 1 
-SCC #3: 5 7 6 4 
