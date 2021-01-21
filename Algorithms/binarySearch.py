@@ -7,18 +7,18 @@ def binarySearch(lst, num):
 	Funcion que busca un número num en una lista lst y retorna el indice en el que se encuentra
 	"""
 	left = 0
-	right = len(lst)-1
-	while left <= right:
-		mid = left + (right-left)//2
+	right = len(lst)
+	while left+1 < right:
+		mid = left + ((right-left)>>1)
 
 		if lst[mid] == num:
 			return mid
 		
 		elif lst[mid] < num:
-			left = mid+1
+			left = mid
 		
 		else:
-			right = mid-1
+			right = mid
 	
 	return -1
 
