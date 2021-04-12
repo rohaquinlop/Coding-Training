@@ -15,11 +15,17 @@
 ---
 # 2020 Goals
 
-* Increase typing speed
-* Master Graph Theory
-* Master Strings Topics
-* Learn Advanced Dynamic Programming skills
+* ~~Increase typing speed~~
+* ~~Master Graph Theory~~
+* ~~Master Strings Topics~~
+* ~~Learn Advanced Dynamic Programming skills~~
 * Top 5 ICPC Colombia National
 * Top 40 ICPC South America-North Finals
+
+# 2021 Goals
+
+* Improve contest rating in Codeforces
+* Increase typing speed
+* Practice every day
 
 ---
