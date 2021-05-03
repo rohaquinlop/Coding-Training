@@ -50,13 +50,29 @@ template <typename T> T gcd(T a, T b) { if (b == 0) return a; return gcd(b, a % 
 template <typename T> T power(T x, T y, ll m = MOD) { T ans = 1; x %= m; while (y > 0) { if (y & 1ll) ans = (ans * x) % m; y >>= 1ll; x = (x * x)%m; } return ans%m;}
 
 void solve(vi &v, int n){
-  vi v1 = v;
-  v1.pop_back();
+  multiset<int> m(v.begin(), v.end());
+  ll sum = accumulate(v.begin(), v.end(), 0LL);
 
-  vi v2 = v1;
-  v2.pop_back();
-  v2.push_back(v[v.size()-1]);
+  for(int x : v){
+    sum -= x;
+    m.erase(m.find(x));
 
+    if(sum%2 == 0 and sum <= 2000000000 and m.find(sum/2) != m.end()){
+      m.erase(m.find(sum/2));
+
+      for(int i : m){
+        cout << i << " ";
+      }
+      cout << endl;
+      return;
+    }
+
+    sum += x;
+    m.insert(x);
+  }
+
+  cout << -1 << endl;
+  return;
 }
 
 int main() {
@@ -70,9 +86,8 @@ int main() {
 
     vi v(n+2);
 
-    fl(i, 0, n+2) cin >> v[i];
+    for(int &x : v) cin >> x;
 
-    sort(v.begin(), v.end());
     solve(v, n);
   }
 
