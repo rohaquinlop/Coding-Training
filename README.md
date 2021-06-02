@@ -19,13 +19,15 @@
 * ~~Master Graph Theory~~
 * ~~Master Strings Topics~~
 * ~~Learn Advanced Dynamic Programming skills~~
-* Top 5 ICPC Colombia National
-* Top 40 ICPC South America-North Finals
+* Top 5 ICPC Colombia National [Cancelled due to pandemic]
+* Top 40 ICPC South America-North Finals [Cancelled due to pandemic]
 
 # 2021 Goals
 
 * Improve contest rating in Codeforces
 * Increase typing speed
 * Practice every day
+* Top 5 ICPC Colombia National
+* Top 40 ICPC South America-North Finals
 
 ---
