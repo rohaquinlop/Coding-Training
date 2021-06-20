@@ -24,10 +24,10 @@
 
 # 2021 Goals
 
-* Improve contest rating in Codeforces
-* Increase typing speed
+* ~~Improve contest rating in Codeforces~~
+* ~~Increase typing speed~~
 * Practice every day
-* Top 5 ICPC Colombia National
+* ~~Top 5 ICPC Colombia National~~ 8th Place
 * Top 40 ICPC South America-North Finals
 
 ---
