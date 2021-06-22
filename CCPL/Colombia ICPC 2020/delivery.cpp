@@ -104,6 +104,12 @@ int main(){
 	cin >> n >> edges >> order;
 
 	while(!(n == 0 && edges == 0 && order == 0)){
+		for(int i = 0; i < n; i++){
+			visitados[i] = 0;
+			deli[i] = 0;
+			picks[i] = 0;
+			grafo[i] = vector <pair<int,int>>();
+		}
 
 		for(int i = 0; i < edges; i++){
 			cin >> c1 >> c2 >> w;
@@ -121,6 +127,8 @@ int main(){
 		}
 
 		cout << BFS(start - 1) << endl;
+		mapa.clear();
+		capacity = 0;
 
 		cin >> n >> edges >> order;
 
