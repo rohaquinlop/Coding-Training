@@ -1,102 +1,121 @@
-using cd = complex<double>;
+/*
+Carlos Ramirez
+Transformada Rapida de Fourier (FTT) - Implementacion iterativa
+Mayo 17 de 2020
+
+*/
+
+#include <cstdio>
+#include <cstdlib>
+#include <vector>
+#include <iostream>
+#include <complex>
+
+using namespace std;
+
 const double PI = acos(-1);
+typedef complex<double> cd;
 
-//Recursion implementation
-void fft(vector<cd>& a, bool invert) {
-  int n = a.size();
-  if (n == 1)
-    return;
-
-  vector<cd> a0(n / 2), a1(n / 2);
-  for (int i = 0; 2 * i < n; i++) {
-    a0[i] = a[2 * i];
-    a1[i] = a[2 * i + 1];
-  }
-  fft(a0, invert);
-  fft(a1, invert);
-
-  double ang = 2 * PI / n * (invert ? -1 : 1);
-  cd w(1), wn(cos(ang), sin(ang));
-  for (int i = 0; 2 * i < n; i++) {
-    a[i] = a0[i] + w * a1[i];
-    a[i + n / 2] = a0[i] - w * a1[i];
-    if (invert) {
-      a[i] /= 2;
-      a[i + n / 2] /= 2;
-    }
-    w *= wn;
-  }
+int reverse(int pos, int n){
+  int res = 0, i;
+  for(i = 0; i < n; ++i)
+    if(pos & (1 << i))
+      res |= 1 << (n - 1 - i);
+  return res;
 }
 
-//Number theory transformation
-//The number theoretic transform (NTT) has the advantage, that it only works with integer, and therefore the result are guaranteed to be correct. Is slower than the implementation using complex numbers (due to the huge number of modulo operations), but it has some advantages such as less memory usage and no rounding errors.
-const int mod = 7340033;
-const int root = 5;
-const int root_1 = 4404020;
-const int root_pw = 1 << 20;
+void fft(vector<cd>& a, bool flag){
+  int n = a.size(), numBits = 0, i, aux, k, j;
+  double exp;
+  cd w, auxW;
 
-void fft(vector<int>& a, bool invert) {
-  int n = a.size();
+  while((1 << numBits) < n)
+    numBits++;
 
-  for (int i = 1, j = 0; i < n; i++) {
-    int bit = n >> 1;
-    for (; j & bit; bit >>= 1)
-      j ^= bit;
-    j ^= bit;
-
-    if (i < j)
-      swap(a[i], a[j]);
+  for(i = 0; i < n; ++i){
+    aux = reverse(i, numBits);
+    if(i < aux)
+      swap(a[i], a[aux]);
   }
 
-  for (int len = 2; len <= n; len <<= 1) {
-    int wlen = invert ? root_1 : root;
-    for (int i = len; i < root_pw; i <<= 1)
-      wlen = (int)(1LL * wlen * wlen % mod);
-
-    for (int i = 0; i < n; i += len) {
-      int w = 1;
-      for (int j = 0; j < len / 2; j++) {
-        int u = a[i + j], v = (int)(1LL * a[i + j + len / 2] * w % mod);
-        a[i + j] = u + v < mod ? u + v : u + v - mod;
-        a[i + j + len / 2] = u - v >= 0 ? u - v : u - v + mod;
-        w = (int)(1LL * w * wlen % mod);
+  for(k = 2; k <= n; k <<= 1){
+    exp = (flag) ? -2 * PI / k : 2 * PI / k;
+    auxW = cd(cos(exp), sin(exp));
+    for(i = 0; i < n; i += k){
+      w = cd(1);
+      for(j = 0; j < k / 2; ++j){
+        cd temp = a[i + j];
+        a[i + j] = a[i + j] + a [i + j + k / 2] * w;
+        a[i + j + k / 2] = temp - a [i + j + k / 2] * w;
+        w *= auxW;
       }
     }
   }
 
-  if (invert) {
-    int n_1 = inverse(n, mod);
-    for (int& x : a)
-      x = (int)(1LL * x * n_1 % mod);
+  if(flag){
+    for(i = 0; i < n; ++i)
+      a[i] /= n;
   }
 }
 
-
-//Standard to multiply two vectors
-vector<int> multiply(vector<int> const& a, vector<int> const& b) {
-  vector<cd> fa(a.begin(), a.end()), fb(b.begin(), b.end());
+void multiplicarPolinomios(vector<cd>& compA, vector<cd>& compB){
   int n = 1;
-  while (n < a.size() + b.size())
+  
+  while(n < compA.size() + compB.size())
     n <<= 1;
-  fa.resize(n);
-  fb.resize(n);
 
-  fft(fa, false);
-  fft(fb, false);
-  for (int i = 0; i < n; i++)
-    fa[i] *= fb[i];
-  fft(fa, true);
+  compA.resize(n);
+  compB.resize(n);
+  fft(compA, false);
+  fft(compB, false);
+  
+  for(int i = 0; i < n; ++i)
+    compA[i] *= compB[i];
 
-  vector<int> result(n);
-  for (int i = 0; i < n; i++)
-    result[i] = round(fa[i].real());
-  return result;
+  fft(compA, true);
 }
 
-//Finally normalize the answer
-int carry = 0;
-for (int i = 0; i < n; i++) {
-  result[i] += carry;
-  carry = result[i] / 10;
-  result[i] %= 10;
+
+int main(){
+  int i, aux, ac, arr1[] = {4, 3, 6, 5}, arr2[] = {2, 7, 3, 8}, arr3[] = {1, 2, 3, 4};
+  vector<cd> pol1(arr1, arr1 + 4), pol2(arr2, arr2 + 4);
+  vector<cd> pol3(arr3, arr3 + 4);
+
+  fft(pol3, false);
+  multiplicarPolinomios(pol1, pol2);
+
+  for(i = 0; i < pol3.size(); ++i)
+    cout << pol3[i] << " ";
+  printf("\n");
+
+  //si los elementos de los vectores representan los coeficientes de dos
+  //polinomios, entonces el resultado corresponde a los coeficientes del producto
+  for(i = 0; i < pol1.size(); ++i)
+    printf("%d ", (int) round(pol1[i].real()));
+  printf("\n");
+
+  ac = 0;
+
+  //si los elementos representan los digitos de un numero grande
+  for(i = 0; i < pol1.size(); ++i){
+    aux = round(pol1[i].real());
+    aux += ac;
+    ac = aux / 10;
+    pol1[i] = cd(aux % 10);
+  }
+
+  for(i = 0; i < pol1.size(); ++i)
+    printf("%d ", (int) round(pol1[i].real()));
+  printf("\n");
+
+  /*int i, ac, arr1[] = {0, 1, 0, 1, 0, 1}, arr2[] = {0, 1, 0, 1, 0, 1};
+  vector<cd> pol1(arr1, arr1 + 6), pol2(arr2, arr2 + 6);
+
+  multiplicarPolinomios(pol1, pol2);
+
+  for(i = 0; i < pol1.size(); ++i)
+    printf("%d ", (int) round(pol1[i].real()));
+    printf("\n");*/
+  
+  return 0;
 }
