@@ -16,7 +16,7 @@ typedef vector <string> vs;
 typedef vector < vi > vvi;
 typedef vector < vll > vvll;
 
-#define fl(i, a, b)	for (int i(a); i < (b); i ++)
+#define fl(i, a, b)	for (int i = a; i < b; ++i)
 
 #define all(v) 	(v).begin(), (v).end()
 #define srt(v)	sort (all (v))
@@ -30,8 +30,8 @@ typedef vector < vll > vvll;
 #define fr first
 #define sc second
 
-#define len(x) ((int) (x).size())
-#define fill (x, y)	memset(x, y, sizeof(x))
+#define len(x) x.size()
+#define fill(x, y)	memset(x, y, sizeof(x))
 #define clr(a)	fill(a, 0)
 #define endl '\n'
 
