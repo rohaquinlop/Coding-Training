@@ -1,3 +1,9 @@
+/*
+POLYMUL - Multiplying two polynomials
+https://www.spoj.com/problems/POLYMUL/
+#fft
+Accepted: https://www.spoj.com/status/ns=31715825
+*/
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -56,17 +62,30 @@ vector<long long> multiply(vector<long long> const& a,
 
   for (int i = 0; i < n; i++) result[i] = round(fa[i].real());
 
-  /*
-  Add if multiplying two long numbers
-  */
-  // Normalize the number
-  int carry = 0;
-  for (int i = 0; i < n; i++) {
-    result[i] += carry;
-    carry = result[i] / 10;
-    result[i] %= 10;
-  }
-  // End of normalization
-
   return result;
+}
+
+int main() {
+  int t, n;
+
+  cin >> t;
+
+  while (t--) {
+    cin >> n;
+    vector<long long> a(n + 1), b(n + 1);
+
+    for (int i = n; i >= 0; i--) cin >> a[i];
+    for (int i = n; i >= 0; i--) cin >> b[i];
+
+    vector<long long> c = multiply(a, b);
+    bool flag = false;
+
+    for (int i = 2 * n; i >= 0; i--) {
+      cout << c[i];
+      if (i > 0) cout << " ";
+    }
+    cout << "\n";
+  }
+
+  return 0;
 }
