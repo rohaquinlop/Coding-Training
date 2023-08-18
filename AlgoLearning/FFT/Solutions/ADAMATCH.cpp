@@ -75,8 +75,6 @@ int main() {
   cin >> s;
   cin >> r;
 
-  int N = max(r.size(), s.size());
-
   vll a(s.size()), b(r.size());
   vll v_ans(s.size() + r.size(), 0), res;
 
