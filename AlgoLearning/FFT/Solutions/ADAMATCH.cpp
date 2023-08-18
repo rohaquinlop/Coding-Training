@@ -2,7 +2,7 @@
 ADAMATCH - Ada and Nucleobase
 https://www.spoj.com/problems/ADAMATCH/
 #fft
-Accepted: Pending - WA
+Accepted: Accepted
 */
 #include <bits/stdc++.h>
 using namespace std;
@@ -70,55 +70,30 @@ vector<long long> multiply(vector<long long> const& a,
 int main() {
   string s, r;
 
+  char dna[] = {'A', 'C', 'T', 'G'};
+
   cin >> s;
   cin >> r;
 
-  vll a(r.size()), b(s.size());
-  vll v_ans;
+  int N = max(r.size(), s.size());
 
-  // A
+  vll a(s.size()), b(r.size());
+  vll v_ans(s.size() + r.size(), 0), res;
 
-  for (int i = 0; i < r.size(); i++) a[i] = r[i] == 'A' ? 1 : 0;
+  for (char c : dna) {
+    for (int i = 0; i < s.size(); i++) a[i] = s[i] == c ? 1 : 0;
+    for (int i = 0; i < r.size(); i++) b[r.size() - 1 - i] = r[i] == c ? 1 : 0;
 
-  for (int i = 0; i < s.size(); i++) b[s.size() - 1 - i] = s[i] == 'A' ? 1 : 0;
+    res = multiply(a, b);
 
-  vll res = multiply(a, b);
-
-  for (ll x : res) v_ans.push_back(x);
-
-  // C
-
-  for (int i = 0; i < r.size(); i++) a[i] = r[i] == 'C' ? 1 : 0;
-
-  for (int i = 0; i < s.size(); i++) b[s.size() - 1 - i] = s[i] == 'C' ? 1 : 0;
-
-  res = multiply(a, b);
-
-  for (int i = 0; i < res.size(); i++) v_ans[i] += res[i];
-
-  // T
-
-  for (int i = 0; i < r.size(); i++) a[i] = r[i] == 'T' ? 1 : 0;
-
-  for (int i = 0; i < s.size(); i++) b[s.size() - 1 - i] = s[i] == 'T' ? 1 : 0;
-
-  res = multiply(a, b);
-
-  for (int i = 0; i < res.size(); i++) v_ans[i] += res[i];
-
-  // G
-
-  for (int i = 0; i < r.size(); i++) a[i] = r[i] == 'G' ? 1 : 0;
-
-  for (int i = 0; i < s.size(); i++) b[s.size() - 1 - i] = s[i] == 'G' ? 1 : 0;
-
-  res = multiply(a, b);
-
-  for (int i = 0; i < res.size(); i++) v_ans[i] += res[i];
+    for (int i = 0; i < r.size() + s.size(); i++) {
+      v_ans[i] += res[i];
+    }
+  }
 
   ll ans = r.size();
 
-  for (int i = r.size() - 1; i < v_ans.size(); i++)
+  for (int i = r.size() - 1; i < s.size(); i++)
     ans = min(ans, (ll)r.size() - v_ans[i]);
 
   cout << ans << "\n";
