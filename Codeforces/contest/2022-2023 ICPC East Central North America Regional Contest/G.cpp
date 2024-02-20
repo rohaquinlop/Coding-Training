@@ -83,7 +83,8 @@ string generate_pea_pattern(string &s) {
     return ans;
 }
 
-string solve(string &n, string &m) {
+int solve(string &n, string &m) {
+    int ans = 0;
     int total = 0;
     string current, next;
 
@@ -93,13 +94,13 @@ string solve(string &n, string &m) {
     q.push(n);
     visited[n] = true;
 
-    while (!q.empty()) {
+    while (!q.empty() and !ans) {
         total++;
         current = q.front();
         q.pop();
 
-        if (total > 100) return "I'm bored";
-        if (current == m) return to_string(total);
+        if (total > 100) ans = -1;
+        if (current == m and ans >= 0) ans = total;
 
         next = generate_pea_pattern(current);
 
@@ -109,7 +110,9 @@ string solve(string &n, string &m) {
         }
     }
 
-    return "Does not appear";
+    if (ans == 0) ans = -2;
+
+    return ans;
 }
 
 int main() {
@@ -119,7 +122,14 @@ int main() {
 
     cin >> n >> m;
 
-    cout << solve(n, m) << endl;
+    int ans = solve(n, m);
+
+    if (ans == -1)
+        cout << "I'm bored" << endl;
+    else if (ans == -2)
+        cout << "Does not appear" << endl;
+    else
+        cout << ans << endl;
 
     return 0;
 }
